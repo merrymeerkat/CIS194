@@ -5,7 +5,7 @@ To execute the code from exercises 2 or 3,
 simply change main (line 9) accordingly -}
 
 main :: IO ()
-main = exercise3
+main = exercise1
 
 -- Exercise 1
 {- Animate a traffic light -}
