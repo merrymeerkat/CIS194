@@ -5,27 +5,33 @@ To execute the code from exercises 2 or 3,
 simply change main (line 9) accordingly -}
 
 main :: IO ()
-main = exercise1
+main = exercise3
 
 -- Exercise 1
 {- Animate a traffic light -}
 
-botCircle, topCircle :: Color -> Picture
+-- Define each light and their position
+botCircle, midCircle, topCircle :: Color -> Picture
 botCircle c = colored c (translated 0 (-3) (solidCircle 1))
 midCircle c = colored c (translated 0 (0) (solidCircle 1))
 topCircle c = colored c (translated 0 3 (solidCircle 1))
 
+-- Define the rectangle around the lights
 frame :: Picture
 frame = rectangle 2.5 8.5
 
+-- Define each stage of the traffic signal by `switching` lights on and off
+amber :: Color
+amber = light(orange)
 trafficLight :: Int  -> Picture
 trafficLight 1 = botCircle green & midCircle black & topCircle black & frame
-trafficLight 2 = botCircle black & midCircle (light(orange)) & topCircle black & frame
+trafficLight 2 = botCircle black & midCircle amber & topCircle black & frame
 trafficLight 3 = botCircle black & midCircle black & topCircle red  & frame
-trafficLight 4 = botCircle black & midCircle (light(orange)) & topCircle red & frame
+trafficLight 4 = botCircle black & midCircle amber & topCircle red & frame
 
-{- Light 1 (green) and 3 (red) are long, 
-and light 2 (amber) and 4 (red and amber) are short -}
+{- And now we can build our animation!
+   Lights 1 (green) and 3 (red) stay for twice as long as 
+   lights 2 (amber) and 4 (red and amber) -}
 trafficController :: Double -> Picture
 trafficController t
   | res <= 1             = trafficLight 1
@@ -71,7 +77,7 @@ tree f c d n = polyline [(0,0),(0,1)] & translated 0 1 (
   rotated (pi/10) (tree f c d (n-1)) & rotated (- pi/10) (tree f c d (n-1)) &
   bloom f c d) 
 
--- we can make our tree blossom gradually by gradually enlarging and darkening its flower buds
+-- we can make our tree blossom by gradually enlarging and darkening its flower buds
 treeBlossoming :: Double -> Picture
 treeBlossoming t
   |t < 1 = (tree False pink 0 8) -- bare tree
@@ -87,7 +93,6 @@ exercise2 = animationOf treeBlossoming
 
 
 -- Exercise 3
-
 {-  Draw a sokoban level -}
 
 -- We start by defining each block
