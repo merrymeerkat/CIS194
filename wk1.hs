@@ -1,4 +1,4 @@
--# OPTIONS_GHC -fno-warn-warnings-deprecations -fno-warn-unused-binds #-}
+{-# OPTIONS_GHC -fno-warn-warnings-deprecations -fno-warn-unused-binds #-}
 import CodeWorld
 {- There are 3 exercises in this file.
 To execute the code from exercises 2 or 3, 
