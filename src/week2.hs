@@ -108,7 +108,6 @@ filterCodes1 m c = filter (isConsistent m) c
 pegs :: Code
 pegs = [Red, Green, Blue, Yellow, Orange, Purple]
 baseCodes :: [Code]
---baseCodes = [[Red], [Green], [Blue], [Yellow], [Orange], [Purple]]
 baseCodes = [[]]
 
 -- This function takes in a Code of length k and a list of j colors and outputs
