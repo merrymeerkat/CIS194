@@ -39,6 +39,10 @@ sumLists [] _ = []
 sumLists _ [] = []
 sumLists (x:xs) (x':xs') = (x + x'):(sumLists xs xs')
 
+--or, with implicit recursion (Jan's suggestion):
+sumLists1 :: [Int] -> [Int] -> [Int]
+sumLists1 a b = zipWith (+) a b
+
 countColors :: Code -> [Int]
 
 countColors [] = [0,0,0,0,0,0]
@@ -53,7 +57,11 @@ countColors (x:xs)
 sumMin :: [Int] -> [Int] -> Int
 sumMin [] _ = 0
 sumMin _ [] = 0
-sumMin (x:xs) (x':xs') = (minimum [x, x']) + (sumMin xs xs')
+sumMin (x:xs) (x':xs') = (min x x') + (sumMin xs xs')
+
+-- or, with implicit recursion and more concisely (Jan's suggestion):
+sumMin1 :: [Int] -> [Int] -> Int
+sumMin1 a b = sum (zipWith (min) a b)
 
 matches :: Code -> Code -> Int
 matches x y = sumMin (countColors x) (countColors y) 
@@ -74,13 +82,13 @@ getMove1 s g = Move g e (m-e)
 -- Write the function isConsistent
 isConsistent :: Move -> Code -> Bool
 
-isConsistent (Move (c) (x) (y)) c' 
+isConsistent (Move c x y) c' 
     |(exactMatches c c') == x && ((matches c c') - (exactMatches c c')) == y = True
     |otherwise                                                               = False
     
 -- Or:
 isConsistent1 :: Move -> Code -> Bool
-isConsistent1 (Move (c) (x) (y)) c'  = e == x && (m - e) == y
+isConsistent1 (Move c x y) c'  = e == x && (m - e) == y
     where e = exactMatches c c'
           m = matches c c'
 
@@ -100,7 +108,8 @@ filterCodes1 m c = filter (isConsistent m) c
 pegs :: Code
 pegs = [Red, Green, Blue, Yellow, Orange, Purple]
 baseCodes :: [Code]
-baseCodes = [[Red], [Green], [Blue], [Yellow], [Orange], [Purple]]
+--baseCodes = [[Red], [Green], [Blue], [Yellow], [Orange], [Purple]]
+baseCodes = [[]]
 
 -- This function takes in a Code of length k and a list of j colors and outputs
 -- a list of j codes where each code has length k+1 and originates from the input code plus one color from the color list
@@ -114,7 +123,7 @@ addToListCode p c = concatMap (addToCode p) c
 
 -- Main function: outputs a list of all posible codes of a given length
 allCodes :: Int -> [Code]
-allCodes 1 = baseCodes
+allCodes 0 = baseCodes
 allCodes n = addToListCode pegs (allCodes (n-1))
 
 -- Exercise 7 -----------------------------------------
