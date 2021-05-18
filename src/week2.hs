@@ -5,7 +5,7 @@
 
 -- A peg can be one of six colors
 data Peg = Red | Green | Blue | Yellow | Orange | Purple
-         deriving (Show, Eq, Ord)
+         deriving (Show, Eq, Ord, Enum)
 
 -- A code is defined to simply be a list of Pegs
 type Code = [Peg]
@@ -30,6 +30,17 @@ exactMatches (x:xs) (x':xs')
     |x == x' = 1 + (exactMatches xs xs')
     |otherwise = (exactMatches xs xs')
 
+-- or, using zipWith (Dmitry's suggestion)
+sumIfEqual :: Peg -> Peg -> Int
+sumIfEqual x y = if (x == y) then 1 else 0
+
+exactMatches1 :: Code -> Code -> Int
+exactMatches1 x y = sum(zipWith (sumIfEqual) x y)
+
+-- or, even more concisely (though I'm not sure if this is better)
+exactMatches2 :: Code -> Code -> Int
+exactMatches2 x y = sum(zipWith (\a b -> if (a == b) then 1 else 0) x y)
+
 -- Exercise 2 -----------------------------------------
 -- Write a function that returns the number of total matches between the secret code and the guess
 
@@ -43,8 +54,8 @@ sumLists (x:xs) (x':xs') = (x + x'):(sumLists xs xs')
 sumLists1 :: [Int] -> [Int] -> [Int]
 sumLists1 a b = zipWith (+) a b
 
+------ function that returns a list with color counts
 countColors :: Code -> [Int]
-
 countColors [] = [0,0,0,0,0,0]
 countColors (x:xs)
     | x == Red    = sumLists [1,0,0,0,0,0] (countColors xs)
@@ -54,6 +65,20 @@ countColors (x:xs)
     | x == Orange = sumLists [0,0,0,0,1,0] (countColors xs)
     | otherwise   = sumLists [0,0,0,0,0,1] (countColors xs)
 
+-- or, more concisely and without hardcoding:
+pegCount :: Int
+pegCount = length [toEnum 0::Peg ..] -- total number of pegs
+
+-- encode (Dmitry's suggestion) returns an int list of length pegCount that is filled with 0s, except at the index corresponding to the input peg, where the value will be 1
+encode :: Peg -> [Int]
+encode p = (replicate k 0) ++ [1] ++ (replicate (pegCount - k - 1) 0)
+                where k = fromEnum p
+
+countColors1 :: Code -> [Int]
+countColors1 c = case c of   []     -> replicate pegCount 0
+                             (x:xs) -> sumLists1 (encode x) (countColors xs)
+
+----- 
 sumMin :: [Int] -> [Int] -> Int
 sumMin [] _ = 0
 sumMin _ [] = 0
@@ -63,13 +88,14 @@ sumMin (x:xs) (x':xs') = (min x x') + (sumMin xs xs')
 sumMin1 :: [Int] -> [Int] -> Int
 sumMin1 a b = sum (zipWith (min) a b)
 
+-- finally, our main :)
 matches :: Code -> Code -> Int
-matches x y = sumMin (countColors x) (countColors y) 
+matches x y = sumMin1 (countColors1 x) (countColors1 y) 
 
 -- Exercise 3 -----------------------------------------
 -- Construct a Move from a guess given the actual code
 getMove :: Code -> Code -> Move
-getMove s g = Move (g) (exactMatches s g)  ((matches s g)  - (exactMatches s g))
+getMove s g = Move g (exactMatches s g)  ((matches s g)  - (exactMatches s g))
 
 -- Or:
 getMove1 :: Code -> Code -> Move
@@ -81,12 +107,15 @@ getMove1 s g = Move g e (m-e)
 -- A code is consistent with a Move if the Code could have been the secret that generated that move
 -- Write the function isConsistent
 isConsistent :: Move -> Code -> Bool
-
 isConsistent (Move c x y) c' 
     |(exactMatches c c') == x && ((matches c c') - (exactMatches c c')) == y = True
     |otherwise                                                               = False
-    
--- Or:
+
+-- as Dmitry noted, the version above is redundant. This is better:
+isConsistent' :: Move -> Code -> Bool
+isConsistent' (Move c x y) c' = (exactMatches c c') == x && ((matches c c') - (exactMatches c c')) == y 
+
+-- Or this:
 isConsistent1 :: Move -> Code -> Bool
 isConsistent1 (Move c x y) c'  = e == x && (m - e) == y
     where e = exactMatches c c'
@@ -107,8 +136,6 @@ filterCodes1 m c = filter (isConsistent m) c
 
 pegs :: Code
 pegs = [Red, Green, Blue, Yellow, Orange, Purple]
-baseCodes :: [Code]
-baseCodes = [[]]
 
 -- This function takes in a Code of length k and a list of j colors and outputs
 -- a list of j codes where each code has length k+1 and originates from the input code plus one color from the color list
@@ -122,13 +149,12 @@ addToListCode p c = concatMap (addToCode p) c
 
 -- Main function: outputs a list of all posible codes of a given length
 allCodes :: Int -> [Code]
-allCodes 0 = baseCodes
+allCodes 0 = [[]]
 allCodes n = addToListCode pegs (allCodes (n-1))
 
 -- Exercise 7 -----------------------------------------
 
 -- Write a MasterMind solver
-solve :: Code -> [Move]
 
 possibilities :: [Code]
 possibilities = allCodes 4
@@ -153,6 +179,7 @@ solveHelper c (p:ps) m
 
 
 -- main function uses solveHelper starting with all possible guesses of size 4 and an empty list of Moves
+solve :: Code -> [Move]
 solve c = solveHelper c possibilities []
 
 
