@@ -69,7 +69,7 @@ matches x y = sumMin (countColors x) (countColors y)
 -- Exercise 3 -----------------------------------------
 -- Construct a Move from a guess given the actual code
 getMove :: Code -> Code -> Move
-getMove s g = Move (g) (exactMatches s g)  ((matches s g)  - (exactMatches s g))
+getMove s g = Move g (exactMatches s g)  ((matches s g)  - (exactMatches s g))
 
 -- Or:
 getMove1 :: Code -> Code -> Move
@@ -173,4 +173,3 @@ solve c = solveHelper c possibilities []
 --length' (allCodes 4) == pow 6 4
 --length' (allCodes 7) == pow 6 7
 --length' (allCodes 12) == pow 6 12
-
