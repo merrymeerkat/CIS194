@@ -200,4 +200,3 @@ solve c = solveHelper c possibilities []
 --length' (allCodes 4) == pow 6 4
 --length' (allCodes 7) == pow 6 7
 --length' (allCodes 12) == pow 6 12
-
