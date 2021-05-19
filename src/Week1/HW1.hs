@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -Wall #-}
-module HW01 where
+module Week1.HW1 where
 
 -- Exercise 1 -----------------------------------------
 
