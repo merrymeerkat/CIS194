@@ -1,4 +1,4 @@
-module week3Spec (spec) where
+module Week3Spec (spec) where
 
 import week3
 import Test.Hspec
@@ -29,4 +29,3 @@ spec =
                 (run (extend empty "In" 7) fibonacci) "Out" `shouldBe` 21
             it "should run a programme that has not been desugared yet" $
                 (run (extend empty "A" 36) squareRoot) "B" `shouldBe` 6
-
