@@ -30,4 +30,6 @@ spec =
                 luhn 4532456034700545 `shouldBe` True
             it "should validate a credit card number" $
                 luhn 4532456034700546 `shouldBe` False
-
+        describe "hanoi" $ do
+            it "should, given the number of discs and names for the 3 pegs, return a list of moves needed to move the stack of discs from the first peg to the second" $
+                hanoi 3 "a" "b" "c" `shouldBe` [("a","b"),("a","c"),("b","c"),("a","b"),("c","a"),("c","b"),("a","b")]
