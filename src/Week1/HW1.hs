@@ -55,7 +55,7 @@ sumDigits l = sum $ sum <$> toRevDigits <$> l
 
 -- Validate a credit card number using the above functions.
 luhn :: Integer -> Bool
-luhn num = if (lastDigit $ sumDigits $ doubleEveryOther $ toRevDigits num) == 0 then True else False
+luhn num = (lastDigit $ sumDigits $ doubleEveryOther $ toRevDigits num) == 0
 
 -- Exercise 6 -----------------------------------------
 
