@@ -57,15 +57,15 @@ toTuple lst = helper lst 0
 showTuple :: (Num a, Eq a, Show a) => [(a,a)] -> String
 showTuple []     = ""
 showTuple ((a,ord):as) = case ord of
-  0 -> show a ++ rest
-  1 -> if a == 1          then "x" ++ rest 
-        else if a == (-1) then "-x" ++ rest
-         else show a ++ "x" ++ rest
-  _ -> if a == 1          then "x^" ++ show ord ++ rest
-        else if a == (-1) then "-x^" ++ show ord ++ rest 
-         else show a ++ "x^" ++ show ord ++ rest
+  0  -> show a ++ rest
+  1  | a == 1    -> "x" ++ rest 
+     | a == (-1) -> "-x" ++ rest
+     | otherwise -> show a ++ "x" ++ rest
+  _  | a == 1    -> "x^" ++ show ord ++ rest
+     | a == (-1) -> "-x^" ++ show ord ++ rest 
+     |otherwise  -> show a ++ "x^" ++ show ord ++ rest
   where
-   rest = if length as > 0 then " + " ++ showTuple as else ""
+   rest = if null as then "" else " + " ++ showTuple as
         
 -- Exercise 4 -----------------------------------------
 
