@@ -122,7 +122,7 @@ class Num a => Differentiable a where
     deriv  :: a -> a
     nderiv :: Int -> a -> a
     nderiv n = case n of
-                1 -> deriv
+                0 -> id
                 _ -> deriv . nderiv (n-1)
 
 -- Exercise 9 -----------------------------------------
