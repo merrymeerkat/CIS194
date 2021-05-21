@@ -35,7 +35,7 @@ sumIfEqual :: Peg -> Peg -> Int
 sumIfEqual x y = if (x == y) then 1 else 0
 
 exactMatches1 :: Code -> Code -> Int
-exactMatches1 x y = sum(zipWith (sumIfEqual) x y)
+exactMatches1 x y = sum (zipWith (sumIfEqual) x y)
 
 -- or, even more concisely (though I'm not sure if this is better)
 exactMatches2 :: Code -> Code -> Int
