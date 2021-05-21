@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 {-# LANGUAGE LambdaCase #-}
-module HW04 where
+module Week4.HW4 where
 
 newtype Poly a = P [a]
 
@@ -129,5 +129,5 @@ class Num a => Differentiable a where
 
 -- define a function for polynomial differentiation
 instance (Num a, Eq a) => Differentiable (Poly a) where
-    deriv (P a) = P $ map (\(coeff, _) -> coeff) $ map (\(coeff, ord) -> (coeff * ord, ord-1)) $ toTuple a
+    deriv (P a) = P $ drop 1 $ map (\(coeff, _) -> coeff) $ map (\(coeff, ord) -> (coeff * ord, ord-1)) $ toTuple a
 
