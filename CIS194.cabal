@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Lib
+    , Week1.HW1
   other-modules:
       Paths_CIS194
   hs-source-dirs:
@@ -50,7 +51,8 @@ test-suite CIS194-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_CIS194
+      Week1Spec
+    , Paths_CIS194
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
