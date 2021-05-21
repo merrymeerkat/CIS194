@@ -129,4 +129,4 @@ class Num a => Differentiable a where
 
 -- define a function for polynomial differentiation
 instance (Num a, Eq a) => Differentiable (Poly a) where
-    deriv (P a) = P $ drop 1 $ map (\(coeff, _) -> coeff) $ map (\(coeff, ord) -> (coeff * ord, ord-1)) $ toTuple a
+    deriv (P a) = P $ drop 1 $ map (\(coeff, ord) -> coeff * ord) $ toTuple a
