@@ -113,7 +113,7 @@ instance Num a => Num (Poly a) where
 
 -- apply a polynomial to a value
 applyP :: (Num a, Integral a) => Poly a -> a -> a
-applyP (P a) n = sum $ (<$>) (\(coeff, ord) -> coeff * n^ord) $ toTuple a
+applyP (P a) n = sum $ (\(coeff, ord) -> coeff * n^ord) <$> toTuple a
 
 -- Exercise 8 -----------------------------------------
 
@@ -130,4 +130,3 @@ class Num a => Differentiable a where
 -- define a function for polynomial differentiation
 instance (Num a, Eq a) => Differentiable (Poly a) where
     deriv (P a) = P $ drop 1 $ map (\(coeff, _) -> coeff) $ map (\(coeff, ord) -> (coeff * ord, ord-1)) $ toTuple a
-
