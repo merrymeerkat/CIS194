@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 {-# LANGUAGE OverloadedStrings, RecordWildCards #-}
-module HW5 where
+module Week5.HW5 where
 
 import Data.ByteString.Lazy (ByteString)
 import Data.Map.Strict (Map)
@@ -14,8 +14,7 @@ import qualified Data.ByteString.Lazy.Char8 as BLC
 import qualified Data.List as DL
 import Data.Function (on)
 
-import Parser
-
+import Week5.Parser
 -- Exercise 1 -----------------------------------------
 -- Implement a function that takes in the paths to the original and modified files, reads them in as ByteStrings, and then outputs the secret that was encodedd in the image
 
@@ -44,7 +43,7 @@ decryptWithKey key outputFile = do
 parseFile :: FromJSON a => FilePath -> IO (Maybe a)
 parseFile filePath = do
   text <- readFile filePath
-  return $ Parser.decode $ BLU.fromString text
+  return $ decode $ BLU.fromString text
 
 -- Exercise 4 -----------------------------------------
 -- Define a function that takes in a path to the victims list and the path to the transaction data,
@@ -141,7 +140,7 @@ sortDesc l = DL.sortBy (\ x y -> if snd x > snd y then GT else LT) l
 
 writeJSON :: ToJSON a => FilePath -> a -> IO ()
 writeJSON path trx = 
-    writeFile path $ BLC.unpack $ Parser.encode trx
+    writeFile path $ BLC.unpack $ encode trx
 
 -- Exercise 9 -----------------------------------------
 -- Putting everything together (the functions below came as part of the homework prompt--I didn't write them)

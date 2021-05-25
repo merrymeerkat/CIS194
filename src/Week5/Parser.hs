@@ -1,5 +1,5 @@
 {-# LANGUAGE RecordWildCards, OverloadedStrings #-}
-module Parser ( encode
+module Week5.Parser ( encode
               , decode
               , Transaction(..)
               , TId
