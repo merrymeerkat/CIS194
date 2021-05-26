@@ -42,20 +42,21 @@ empty _ = 0
 
 -- Exercise 2 -----------------------------------------
 
-boolToInt :: Bool -> Int
+boolToInt :: (Num a) => Bool -> a
 boolToInt True = 1
 boolToInt False = 0
 
+bopTransform :: (Eq a, Show a, Integral a) => Bop -> a -> a -> a
 bopTransform op a b = case op of
                 Plus -> (+) a b
                 Minus -> (-) a b
                 Times -> (*) a b
                 Divide -> div a b
-                Gt -> boolToInt((>) a b)
-                Ge -> boolToInt((>=) a b)
-                Lt -> boolToInt((<) a b)
-                Le -> boolToInt((<=) a b)
-                Eql -> boolToInt((==) a b)
+                Gt -> boolToInt $ (>) a b
+                Ge -> boolToInt $ (>=) a b
+                Lt -> boolToInt $ (<) a b
+                Le -> boolToInt $ (<=) a b
+                Eql -> boolToInt $ (==) a b
 
 evalE :: State -> Expression -> Int
 evalE st exp = case exp of
