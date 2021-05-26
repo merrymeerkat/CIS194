@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Lib
+    , Week4.HW4
     , Week1.HW1
   other-modules:
       Paths_CIS194
@@ -51,6 +52,7 @@ test-suite CIS194-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Week4Spec  
       Week1Spec
     , Paths_CIS194
   hs-source-dirs:
