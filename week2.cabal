@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           CIS194
+name:           week2
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/week2#readme>
 homepage:       https://github.com/githubuser/week2#readme
@@ -26,40 +26,36 @@ source-repository head
 library
   exposed-modules:
       Lib
-    , Week4.HW4
-    , Week1.HW1
+      Week3.HW3
   other-modules:
-      Paths_CIS194
+      Paths_week2
   hs-source-dirs:
       src
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
 
-executable CIS194-exe
+executable week2-exe
   main-is: Main.hs
   other-modules:
-      Paths_CIS194
+      Paths_week2
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-    base >=4.7 && <5
+      base >=4.7 && <5
+    , week2
   default-language: Haskell2010
 
-test-suite CIS194-test
+test-suite week2-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_CIS194
-    , Week1Spec
-    , Week4Spec  
+      Paths_week2
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , CIS194
-    , base >=4.7 && <5
-    , hspec
+    , week2
   default-language: Haskell2010
