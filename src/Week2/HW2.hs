@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -Wall #-}
---module week2 where
+module HW2 where
 
 -- Mastermind -----------------------------------------
 
