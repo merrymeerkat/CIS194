@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Lib
+    , Week4.HW4
     , Week1.HW1
   other-modules:
       Paths_CIS194
@@ -43,35 +44,22 @@ executable CIS194-exe
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-<<<<<<< HEAD:cis194.cabal
-      base >=4.7 && <5
-    , CIS194
-=======
-      CIS194
-    , base >=4.7 && <5
->>>>>>> 71e13b6d627045f1315a154061e73d082aa1da8c:CIS194.cabal
+    base >=4.7 && <5
   default-language: Haskell2010
 
 test-suite CIS194-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-<<<<<<< HEAD:cis194.cabal
       Paths_CIS194
-=======
-      Week1Spec
-    , Paths_CIS194
->>>>>>> 71e13b6d627045f1315a154061e73d082aa1da8c:CIS194.cabal
+    , Week1Spec
+    , Week4Spec  
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-<<<<<<< HEAD:cis194.cabal
       base >=4.7 && <5
     , CIS194
-=======
-      CIS194  
     , base >=4.7 && <5
     , hspec
->>>>>>> 71e13b6d627045f1315a154061e73d082aa1da8c:CIS194.cabal
   default-language: Haskell2010
