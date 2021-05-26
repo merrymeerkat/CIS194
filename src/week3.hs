@@ -34,10 +34,8 @@ type State = String -> Int
 -- Exercise 1 -----------------------------------------
 
 extend :: State -> String -> Int -> State
-extend oldState str val = state
-    where state k
-            |k == str = val
-            |otherwise = oldState k
+extend oldState str val = \k ->
+  if k == str then val else oldState k
 
 empty :: State
 empty _ = 0
@@ -169,4 +167,3 @@ fibonacci = slist [ Assign "F0" (Val 1)
                            )
                        )
                   ]
-
