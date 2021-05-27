@@ -121,14 +121,10 @@ undoTs mp tids = helper (DL.sort (getPayers mp)) (sortDesc (getPayees mp)) tids
   where helper [] _ _ = []
         helper _ [] _ = []
         helper _ _ [] = []
-        helper (pr:prs) (pe:pes) (i:ids)
+        helper (pr@(payer,debit):prs) (pe@(payee,credit):pes) (i:ids)
           |snd pr == 0 = helper prs (pe:pes) (i:ids)
           |snd pe == 0 = helper (pr:prs) pes (i:ids)
           |otherwise   = 
-                         let payer = fst pr in
-                         let debit = snd pr in
-                         let payee = fst pe in
-                         let credit = snd pe in
                          let mini = min credit $ abs debit in
                          let newTr = Transaction {from = payee, to = payer, amount = mini, tid = i} in
                          newTr : helper ((payer, debit + mini):prs) ((payee, credit - mini):pes) ids
@@ -148,7 +144,7 @@ sortDesc l = DL.sortBy (\ x y -> if snd x > snd y then GT else LT) l
 
 writeJSON :: ToJSON a => FilePath -> a -> IO ()
 writeJSON path trx = 
-    writeFile path $ BLC.unpack $ encode trx
+    BS.writeFile path $ encode trx
 
 -- Exercise 9 -----------------------------------------
 -- Putting everything together (the functions below came as part of the homework prompt--I didn't write them)
