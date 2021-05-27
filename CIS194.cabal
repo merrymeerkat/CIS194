@@ -64,4 +64,5 @@ test-suite CIS194-test
     , CIS194
     , base >=4.7 && <5
     , hspec
-  default-language: Haskell2010
+    , libiserv
+default-language: Haskell2010

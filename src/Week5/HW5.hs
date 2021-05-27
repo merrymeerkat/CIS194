@@ -27,23 +27,31 @@ getSecret p1 p2 = do
 -- Exercise 2 -----------------------------------------
 -- This function should read in an encrypted file, decrypt it using the key, and then write it back to another file.
 
-decryptWithKey :: ByteString -> FilePath -> IO ()
-decryptWithKey key outputFile = do
+decryptWithKey' :: ByteString -> FilePath -> IO ()
+decryptWithKey' key outputFile = do
   encryptedFile <- BS.readFile $ outputFile ++ ".enc"
   let fileLength = fromIntegral $ BS.length encryptedFile
   let keyLength = fromIntegral $ BS.length key
   let repeats = div fileLength keyLength
   let repKey = [1..repeats + 1] >> (BLC.unpack key) -- key repeated to fit (at least) the length of the encrypted file
   let res = BS.pack $ BS.zipWith D.xor encryptedFile (BLU.fromString repKey)
-  writeFile outputFile $ BLC.unpack res
-  
+  BS.writeFile outputFile res
+
+-- making use of laziness
+decryptWithKey :: ByteString -> FilePath -> IO ()
+decryptWithKey key outputFile = do
+  encryptedFile <- BS.readFile $ outputFile ++ ".enc"  
+  let res = BS.pack $ BS.zipWith D.xor encryptedFile (BS.concat $ repeat key)
+  BS.writeFile outputFile res
+
+
 -- Exercise 3 -----------------------------------------
 -- Define a function that takes in a path to a JSON file and attempts to parse it as a value of type a.
 
 parseFile :: FromJSON a => FilePath -> IO (Maybe a)
 parseFile filePath = do
-  text <- readFile filePath
-  return $ decode $ BLU.fromString text
+  text <- BS.readFile filePath
+  return $ decode text
 
 -- Exercise 4 -----------------------------------------
 -- Define a function that takes in a path to the victims list and the path to the transaction data,
