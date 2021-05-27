@@ -117,7 +117,7 @@ getCriminal mp = helper 0 "no-one" $ Map.toList mp
 -- Generate a new list of transactions to undo the money transfer
 
 undoTs :: Map String Integer -> [TId] -> [Transaction]
-undoTs mp tids = helper (sortDesc (getPayers mp)) (sortDesc (getPayees mp)) tids 
+undoTs mp tids = helper (DL.sort (getPayers mp)) (sortDesc (getPayees mp)) tids 
   where helper [] _ _ = []
         helper _ [] _ = []
         helper _ _ [] = []
