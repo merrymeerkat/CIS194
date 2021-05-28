@@ -2,6 +2,10 @@
 module Week6.HW6 where
 
 import Data.List
+<<<<<<< HEAD
+=======
+import Data.Functor
+>>>>>>> cd00f0c... week 6
 
 -- Exercise 1 -----------------------------------------
 
@@ -27,7 +31,11 @@ data Stream a = Cons a (Stream a)
 
 -- Show instance prints the first 20 elements followed by ellipsis
 instance Show a => Show (Stream a) where
+<<<<<<< HEAD
     show s = "[" ++ intercalate ", " (map show $ take 20 $ streamToList s)
+=======
+    show s = "[" ++ intercalate ", " (map show $ take 64 $ streamToList s)
+>>>>>>> cd00f0c... week 6
              ++ ",..."
 
 streamToList :: Stream a -> [a]

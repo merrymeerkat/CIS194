@@ -9,6 +9,7 @@ spec =
         describe "fib" $ do
             it "should compute the nth fibonacci number (slowly)" $
                 fib 5 `shouldBe` 5
+<<<<<<< HEAD
         describe "minMax" $ do
             it "should return the minimum and maximum elements of a stream" $
                 minMax [0,1,2,3456789] `shouldBe` Just (0, 3456789)
@@ -17,3 +18,10 @@ spec =
                 fastFib 100 `shouldBe` 354224848179261915075
         
         
+=======
+        describe "fmap" $ do
+            it "should map a function to all the elements in a stream" $
+                fmap (+2) (sRepeat 0) `shouldBe` "[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, ..."
+        
+        
+>>>>>>> cd00f0c... week 6
