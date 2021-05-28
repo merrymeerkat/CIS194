@@ -15,5 +15,3 @@ spec =
         describe "fastFib" $ do
             it "should compute the nth fibonacci number (quickly)" $
                 fastFib 100 `shouldBe` 354224848179261915075
-        
-        
