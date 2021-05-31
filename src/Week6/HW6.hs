@@ -8,8 +8,8 @@ import Data.Functor
 
 -- Write a Fibonacci function
 fib :: Integer -> Integer
+fib 0 = 1
 fib 1 = 1
-fib 2 = 1
 fib n = fib (n - 2) + fib (n - 1)
 
 -- Define an infinite Fibonnaci sequence
