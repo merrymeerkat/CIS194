@@ -2,13 +2,14 @@
 module Week6.HW6 where
 
 import Data.List
+import Data.Functor
 
 -- Exercise 1 -----------------------------------------
 
 -- Write a Fibonacci function
 fib :: Integer -> Integer
+fib 0 = 1
 fib 1 = 1
-fib 2 = 1
 fib n = fib (n - 2) + fib (n - 1)
 
 -- Define an infinite Fibonnaci sequence
@@ -27,8 +28,8 @@ data Stream a = Cons a (Stream a)
 
 -- Show instance prints the first 20 elements followed by ellipsis
 instance Show a => Show (Stream a) where
-    show s = "[" ++ intercalate ", " (map show $ take 20 $ streamToList s)
-             ++ ",..."
+        show s = "[" ++ intercalate ", " (map show $ take 64 $ streamToList s) 
+               ++ ",..."
 
 streamToList :: Stream a -> [a]
 streamToList (Cons a str) = a : streamToList str
