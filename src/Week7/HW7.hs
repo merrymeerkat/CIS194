@@ -153,10 +153,7 @@ selectSubvector i (v1, p, v2)
 
 -- Implement allCards, which returns a Vector of Cards grouped by suit and arranged from Two to Ace
 allCards :: Deck
-allCards = [Card l s | l <- toEnum <$> helperVec, s <- V.singleton Spade]
-        <> [Card l s | l <- toEnum <$> helperVec, s <- V.singleton Heart]
-        <> [Card l s | l <- toEnum <$> helperVec, s <- V.singleton Club]
-        <> [Card l s | l <- toEnum <$> helperVec, s <- V.singleton Diamond]
+allCards = [Card l s | l <- labels, s <- suits]
 
 helperVec :: (Num a) => Vector a
 helperVec = V.iterateN 13 (+1) 0 -- vector [0,1,...,12]
