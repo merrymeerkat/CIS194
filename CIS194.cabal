@@ -28,12 +28,14 @@ library
       Lib
     , Week4.HW4
     , Week1.HW1
+    , Week5.HW5
+    , Week5.Parser
   other-modules:
       Paths_CIS194
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      base >=4.7 && <5, aeson, bytestring, containers, utf8-string
   default-language: Haskell2010
 
 executable CIS194-exe
@@ -44,7 +46,7 @@ executable CIS194-exe
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-    base >=4.7 && <5
+    CIS194, base >=4.7 && <5
   default-language: Haskell2010
 
 test-suite CIS194-test
@@ -58,8 +60,8 @@ test-suite CIS194-test
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
-    , CIS194
+      CIS194
     , base >=4.7 && <5
     , hspec
-  default-language: Haskell2010
+    , libiserv
+default-language: Haskell2010
