@@ -14,5 +14,5 @@ module Week6Spec (spec) where
                   minMax [0,1,2,3456789] `shouldBe` Just (0, 3456789)
           describe "fastFib" $ do
               it "should compute the nth fibonacci number (quickly)" $
-                  fastFib 100 `shouldBe` 354224848179261915075
+                  fastFib 101 `shouldBe` 354224848179261915075
         
