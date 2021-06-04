@@ -29,6 +29,9 @@ liftM'' f ma = ma >>= \a -> return $ f a
 liftM''' f ma = ma >>= (f >=> return)
 -- HLS suggested this >=> operator. Pretty cool :D
 
+-- but liftM is really just fmap, since monads are a type of functor
+liftM'''' = fmap
+
 -- Define a function that takes in two indices and swaps the elements at those indices in some vector
 swapV :: Int -> Int -> Vector a -> Maybe (Vector a)
 swapV i j v = do
