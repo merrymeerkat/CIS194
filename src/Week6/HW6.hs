@@ -28,8 +28,8 @@ data Stream a = Cons a (Stream a)
 
 -- Show instance prints the first 20 elements followed by ellipsis
 instance Show a => Show (Stream a) where
-    show s = "[" ++ intercalate ", " (map show $ take 64 $ streamToList s)
-             ++ ",..."
+        show s = "[" ++ intercalate ", " (map show $ take 64 $ streamToList s) 
+               ++ ",..."
 
 streamToList :: Stream a -> [a]
 streamToList (Cons a str) = a : streamToList str
