@@ -39,7 +39,7 @@ library
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5, aeson, bytestring, containers, utf8-string, vector, random, comonad
+      base >=4.7 && <5, aeson, bytestring, containers, utf8-string, vector, random, comonad, MonadRandom
   default-language: Haskell2010
 
 executable CIS194-exe
@@ -71,4 +71,5 @@ test-suite CIS194-test
     , base >=4.7 && <5
     , hspec
     , libiserv
+    , vector
 default-language: Haskell2010
