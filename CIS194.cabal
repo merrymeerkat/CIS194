@@ -33,6 +33,7 @@ library
     , Week6.HW6
     , Week7.HW7
     , Week7.Cards
+    , Week8.HW8
   other-modules:
       Paths_CIS194
   hs-source-dirs:
