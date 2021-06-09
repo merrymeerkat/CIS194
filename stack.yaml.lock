@@ -3,7 +3,32 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: acme-missiles-0.3@sha256:2ba66a092a32593880a87fb00f3213762d7bca65a687d45965778deb8694c5d1,613
+    pantry-tree:
+      size: 226
+      sha256: 614bc0cca76937507ea0a5ccc17a504c997ce458d7f2f9e43b15a10c8eaeb033
+  original:
+    hackage: acme-missiles-0.3
+- completed:
+    name: stack
+    version: 1.0.5
+    git: https://github.com/commercialhaskell/stack.git
+    pantry-tree:
+      size: 23178
+      sha256: 6fa5808c7dfc5a2cc8b90f26a7e744de52662420570b9092f19d3987d7fb1bf8
+    commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
+  original:
+    git: https://github.com/commercialhaskell/stack.git
+    commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
+- completed:
+    hackage: vector-0.12.3.0@sha256:0ae2c1ba86f0077910be242ec6802cc3d7725fe7b2bea6987201aa3737b239b5,7953
+    pantry-tree:
+      size: 3842
+      sha256: 11121a60e271d7971b68d603e4727673e8ffb724c858106bb739997ae00e485a
+  original:
+    hackage: vector-0.12.3.0@sha256:0ae2c1ba86f0077910be242ec6802cc3d7725fe7b2bea6987201aa3737b239b5,7953
 snapshots:
 - completed:
     size: 567672

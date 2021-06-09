@@ -3,6 +3,7 @@ module Week7Spec (spec) where
 import Week7.HW7
 import Week7.Cards
 import Test.Hspec
+import qualified Data.Vector as V
 
 spec :: Spec
 spec =
@@ -20,9 +21,9 @@ spec =
                 mapM' Just [1..10] `shouldBe` Just [1..10]
         describe "getElts" $ do
             it "should take in a list of indices and a vector and return (maybe) a list of the elements at those indices" $
-                getElts [1,3] (V.fromList [0..9]) `shoulBe` Just [1,3]
+                getElts [1,3] (V.fromList [0..9]) `shouldBe` Just [1,3]
             it "should return Nothing if any index is out of range" $
-                getElts [1,10] (V.fromList [0..9]) `shoulBe` Nothing
+                getElts [1,10] (V.fromList [0..9]) `shouldBe` Nothing
         describe "qsort" $ do
             it "should sort a vector" $
                 qsort (V.fromList [3,4,1,2,5]) `shouldBe` (V.fromList [1,2,3,4,5])

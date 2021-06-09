@@ -30,6 +30,7 @@ liftM''' f ma = ma >>= (f >=> return)
 -- HLS suggested this >=> operator. Pretty cool :D
 
 -- but liftM is really just fmap, since monads are a type of functor
+liftM'''' :: Monad m => (a -> b) -> m a -> m b
 liftM'''' = fmap
 
 -- Define a function that takes in two indices and swaps the elements at those indices in some vector
