@@ -37,7 +37,7 @@ writeIORef  :: IORef a -> a -> IO ()
 modifyIORef :: IORef a -> (a -> a) -> IO ()
 
 
--- A few use cases for IO Refs
+-- A few use  IO Refs
 --
 -- Counting the number of times an element appears in a list
 count :: Eq a => [a] -> a -> IO Int
