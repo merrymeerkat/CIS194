@@ -1,4 +1,4 @@
--- THE WORK IN THIS FILE IS NOT MINE. These are just notes I took from the CIS194 Week 12 lecture
+-- THE FUNCTIONS IN THIS FILE ARE NOT MINE. These are just notes I took from the CIS194 Week 12 lecture
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TupleSections     #-}
 module Week12.UnsafeHaskell where
@@ -25,19 +25,19 @@ import qualified Data.ByteString as BS
 -- Here are some basic functions for dealing with IORefs:
 
 -- Initialise an IO Ref
-newIORef    :: a -> IO (IORef a)
+-- newIORef    :: a -> IO (IORef a)
 
 -- Read from an IO Ref
-readIORef   :: IORef a -> IO a
+-- readIORef   :: IORef a -> IO a
 
 -- Write to an IO Ref
-writeIORef  :: IORef a -> a -> IO ()
+-- writeIORef  :: IORef a -> a -> IO ()
 
 -- Update the value of an IO Ref
-modifyIORef :: IORef a -> (a -> a) -> IO ()
+-- modifyIORef :: IORef a -> (a -> a) -> IO ()
 
 
--- A few use  IO Refs
+-- A few use cases for IO Refs
 --
 -- Counting the number of times an element appears in a list
 count :: Eq a => [a] -> a -> IO Int
@@ -113,4 +113,8 @@ assignIDs3 t = do
   c <- newCoutner
   let helper Empty = return Empty
       helper (Node l x r) = Node
-                      
+                            <$> helper l
+                            <*> ( (,x ) <$> c )
+                            <*> helper r
+  helper t
+
