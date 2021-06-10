@@ -9,9 +9,9 @@ version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/week2#readme>
 homepage:       https://github.com/githubuser/week2#readme
 bug-reports:    https://github.com/githubuser/week2/issues
-author:         Author name here
+author:         Daniela Moura
 maintainer:     example@example.com
-copyright:      2021 Author name here
+copyright:      2021 Daniela Moura
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
