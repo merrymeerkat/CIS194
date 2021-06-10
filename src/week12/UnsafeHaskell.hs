@@ -1,5 +1,8 @@
+-- THE WORK IN THIS FILE IS NOT MINE. These are just notes I took from the CIS194 Week 12 lecture
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TupleSections     #-}
+module Week12.UnsafeHaskell where
+
 import Control.Applicative
 import Control.Monad
 import Data.ByteString (ByteString)
@@ -62,5 +65,52 @@ count3 xs x = unsafePerformIO $ do
 -- the code above sucks. It is ugly, uses UnsafePerformIO, and runs 7x slower than the pure version (count2). GHC is optimised for wholemeal style programming
 
 -- Still, in some cases mutable states could actually be useful
+-- For example, consider a function that assigns a unique identifier to each node in a tree
 --
---
+data Tree a = Node (Tree a) a (Tree a)
+            | Empty
+              deriving Show
+
+assignIDs :: Tree a -> Tree (Int, a)
+assignIDs = snd . assignIDsHelper 0
+  where assignIDsHelper id Empty        = (id, Empty)
+        assignIDsHelper id (Node l x r) = (id2, Node l' (id1, x) r') 
+          where (id1, l') = assignIDsHelper id l
+                (id2, r') = assignIDsHelper (id1+1) r
+
+-- It would be more convenient to have a mutable counter:
+newCounter :: IO (IO Int)
+newCounter = do
+  r <- newIORef 0
+  return $ do
+    v <- readIORef r
+    writeIORef r (v + 1)
+    return v
+
+printCounts :: IO ()
+printCounts = do
+  c <- newCounter
+  print =<< c
+  print =<< c
+  print =<< c
+-- every time the action c is evaluated, the internal counter is incremented
+
+-- Now we can use this to rewrite the assignIDs function:
+assignIDs2 :: Tree a -> IO (Tree (Int, a))
+assignIDs2 t = do
+  c <- newCounter
+  let helper Empty = return Empty
+      helper (Node l x r) = do
+        l' <- helper l
+        id <- c
+        r' <- helper r
+        return $ Node l' (id, x) r'
+  helper t
+
+-- We could also write it using applicative functors, because the value on the counter does not effect the control flow of the program
+assignIDs3 :: Tree a -> IO (Tree (Int, a))
+assignIDs3 t = do
+  c <- newCoutner
+  let helper Empty = return Empty
+      helper (Node l x r) = Node
+                      
