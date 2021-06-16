@@ -107,7 +107,7 @@ assignIDs2 t = do
         return $ Node l' (id, x) r'
   helper t
 
--- We could also write it using applicative functors, because the value on the counter does not effect the control flow of the program
+-- We could also write it using applicative functors, because the value on the counter does not affect the control flow of the program
 assignIDs3 :: Tree a -> IO (Tree (Int, a))
 assignIDs3 t = do
   c <- newCoutner
